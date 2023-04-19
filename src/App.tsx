@@ -62,13 +62,17 @@ function App() {
       // There are two JWT tokens, don't mixed them up :-)
       console.log("tari.token", tari.token)
       jsonRpc("webrtc.start", token, tari.token);
-      // Now the data channel should open, the user can override the callback above for the notification.
-      // You can encounter error like I do (from the wallet daemon): 
-      // WARN  [controlled]: failed to resolve stun host: stun.l.google.com:19302: io error: No available ipv6 IP address found!
-      // My provider is only ipv6 from outside so I can't connect even with this, and I didn't find any free ipv6 turn server.
+      setTimeout(() => {
+        tari.setAnswer();
+        window.tari = tari; // Just for testing in the console
+        // Now the data channel should open, the user can override the callback above for the notification.
+        // You can encounter error like I do (from the wallet daemon): 
+        // WARN  [controlled]: failed to resolve stun host: stun.l.google.com:19302: io error: No available ipv6 IP address found!
+        // My provider is only ipv6 from outside so I can't connect even with this, and I didn't find any free ipv6 turn server.
+      }, 1000);
+      // UNTIL HERE
+      // ===============================================================================================================================
     });
-    // UNTIL HERE
-    // ===============================================================================================================================
   };
   return (
     <div className="App">
